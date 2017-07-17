@@ -1,1 +1,4 @@
-services: []
+services:
+  domain.storage.composite:
+    class: Vainyl\Domain\Storage\CompositeDomainStorage
+    arguments: ['@storage.prototype']
