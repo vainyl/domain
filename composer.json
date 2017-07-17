@@ -13,10 +13,10 @@
         }
     },
     "require": {
-        "vainyl/core": "0.1.x-dev",
-        "vainyl/document": "0.1.x-dev",
-        "vainyl/entity": "0.1.x-dev",
-        "vainyl/time": "0.1.x-dev"
+        "vainyl/core": "dev-master",
+        "vainyl/document": "dev-master",
+        "vainyl/entity": "dev-master",
+        "vainyl/time": "dev-master"
     },
     "repositories": [
         {
