@@ -14,8 +14,6 @@
     },
     "require": {
         "vainyl/core": "dev-master",
-        "vainyl/document": "dev-master",
-        "vainyl/entity": "dev-master",
         "vainyl/time": "dev-master"
     },
     "repositories": [
