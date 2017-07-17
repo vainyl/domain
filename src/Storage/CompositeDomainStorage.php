@@ -14,7 +14,7 @@ namespace Vainyl\Domain\Storage;
 
 use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
 use Vainyl\Domain\DomainInterface;
-use Vainyl\Domain\Exception\UnsupportedDomainException;
+use Vainyl\Domain\Exception\UnsupportedDomainStorageException;
 
 /**
  * Class CompositeDomainStorage
@@ -72,7 +72,7 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
             $storage->find($name, $limit, $offset);
         }
 
-        throw new UnsupportedDomainException($this, $name);
+        throw new UnsupportedDomainStorageException($this, $name);
     }
 
     /**
@@ -87,6 +87,6 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
             $storage->findOne($name, $criteria, $orderBy);
         }
 
-        throw new UnsupportedDomainException($this, $name);
+        throw new UnsupportedDomainStorageException($this, $name);
     }
 }

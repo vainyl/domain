@@ -14,7 +14,7 @@ namespace Vainyl\Domain\Storage;
 
 use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
 use Vainyl\Domain\DomainInterface;
-use Vainyl\Domain\Exception\UnsupportedDomainException;
+use Vainyl\Domain\Exception\UnsupportedDomainStorageException;
 
 /**
  * Class AbstractDomainStorage
@@ -47,7 +47,7 @@ abstract class AbstractDomainStorage extends AbstractStorageDecorator implements
     public function find(string $name, int $limit = 0, int $offset = 0): array
     {
         if (false === $this->supports($name)) {
-            throw new UnsupportedDomainException($this, $name);
+            throw new UnsupportedDomainStorageException($this, $name);
         }
 
         return $this->doFind($name, $limit, $offset);
@@ -59,7 +59,7 @@ abstract class AbstractDomainStorage extends AbstractStorageDecorator implements
     public function findOne(string $name, array $criteria = [], array $orderBy = []): ?DomainInterface
     {
         if (false === $this->supports($name)) {
-            throw new UnsupportedDomainException($this, $name);
+            throw new UnsupportedDomainStorageException($this, $name);
         }
 
         return $this->doFindOne($name, $criteria, $orderBy);

@@ -12,27 +12,28 @@ declare(strict_types=1);
 
 namespace Vainyl\Domain\Exception;
 
-use Vainyl\Domain\Storage\DomainStorageInterface;
+use Vainyl\Domain\DomainInterface;
+use Vainyl\Domain\Operation\Factory\DomainOperationFactoryInterface;
 
 /**
  * Class UnsupportedDomainException
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class UnsupportedDomainException extends AbstractDomainStorageException
+class UnsupportedDomainFactoryException extends AbstractDomainFactoryException
 {
     private $domain;
 
     /**
      * UnsupportedDomainException constructor.
      *
-     * @param DomainStorageInterface $storage
-     * @param string                 $domain
+     * @param DomainOperationFactoryInterface $factory
+     * @param DomainInterface                 $domain
      */
-    public function __construct(DomainStorageInterface $storage, string $domain)
+    public function __construct(DomainOperationFactoryInterface $factory, DomainInterface $domain)
     {
         $this->domain = $domain;
-        parent::__construct($storage, sprintf('Unsupported domain %s', $domain));
+        parent::__construct($factory, sprintf('Unsupported domain %s', $domain->getName()));
     }
 
     /**
