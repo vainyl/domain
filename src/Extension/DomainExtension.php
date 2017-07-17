@@ -21,4 +21,11 @@ use Vainyl\Core\Extension\AbstractFrameworkExtension;
  */
 class DomainExtension extends AbstractFrameworkExtension
 {
+    /**
+     * @inheritDoc
+     */
+    public function getCompilerPasses(): array
+    {
+        return [new DomainFactoryCompilerPass(), new DomainStorageCompilerPass()];
+    }
 }
