@@ -25,6 +25,31 @@ use Vainyl\Operation\OperationInterface;
 class CompositeDomainOperationFactory extends AbstractStorageDecorator implements DomainOperationFactoryInterface
 {
     /**
+     * @param string $name
+     * @param DomainOperationFactoryInterface $domainOperationFactory
+     *
+     * @return CompositeDomainOperationFactory
+     */
+    public function addFactory(
+        string $name,
+        DomainOperationFactoryInterface $domainOperationFactory
+    ): CompositeDomainOperationFactory {
+        $this->offsetSet($name, $domainOperationFactory);
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return DomainOperationFactoryInterface
+     */
+    public function getFactory(string $name): DomainOperationFactoryInterface
+    {
+        return $this->offsetGet($name);
+    }
+
+    /**
      * @inheritDoc
      */
     public function supports(DomainInterface $domain): bool
