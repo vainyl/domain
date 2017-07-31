@@ -14,6 +14,7 @@ namespace Vainyl\Domain;
 
 use Vainyl\Core\ArrayInterface;
 use Vainyl\Core\NameableInterface;
+use Vainyl\Time\TimeInterface;
 
 /**
  * Class DomainInterface
@@ -22,4 +23,27 @@ use Vainyl\Core\NameableInterface;
  */
 interface DomainInterface extends ArrayInterface, NameableInterface
 {
+    /**
+     * @param TimeInterface $time
+     *
+     * @return ArrayInterface
+     */
+    public function setCreatedAt(TimeInterface $time): ArrayInterface;
+
+    /**
+     * @param TimeInterface $time
+     *
+     * @return ArrayInterface
+     */
+    public function setUpdatedAt(TimeInterface $time): ArrayInterface;
+
+    /**
+     * @return TimeInterface
+     */
+    public function createdAt(): TimeInterface;
+
+    /**
+     * @return TimeInterface
+     */
+    public function updatedAt(): TimeInterface;
 }
