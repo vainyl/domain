@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Vainyl\Domain\Storage;
 
-use Vainyl\Core\Storage\StorageInterface;
+use Vainyl\Core\IdentifiableInterface;
 use Vainyl\Domain\DomainInterface;
 
 /**
@@ -20,7 +20,7 @@ use Vainyl\Domain\DomainInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface DomainStorageInterface extends StorageInterface
+interface DomainStorageInterface extends IdentifiableInterface
 {
     /**
      * @param string $name
