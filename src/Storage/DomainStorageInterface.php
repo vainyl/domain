@@ -24,19 +24,28 @@ interface DomainStorageInterface extends IdentifiableInterface
 {
     /**
      * @param string $name
+     * @param        $id
      *
-     * @return bool
+     * @return null|DomainInterface
      */
-    public function supports(string $name): bool;
+    public function findById(string $name, $id): ?DomainInterface;
 
     /**
      * @param string $name
+     * @param array  $criteria
+     * @param array  $orderBy
      * @param int    $limit
      * @param int    $offset
      *
-     * @return array
+     * @return DomainInterface[]
      */
-    public function find(string $name, int $limit = 0, int $offset = 0): array;
+    public function findMany(
+        string $name,
+        array $criteria = [],
+        array $orderBy = [],
+        int $limit = 0,
+        int $offset = 0
+    ): array;
 
     /**
      * @param string $name
@@ -46,4 +55,11 @@ interface DomainStorageInterface extends IdentifiableInterface
      * @return null|DomainInterface
      */
     public function findOne(string $name, array $criteria = [], array $orderBy = []): ?DomainInterface;
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function supports(string $name): bool;
 }

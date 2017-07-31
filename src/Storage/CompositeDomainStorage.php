@@ -20,11 +20,13 @@ use Vainyl\Domain\Exception\UnsupportedDomainStorageException;
  * Class CompositeDomainStorage
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ *
+ * @method DomainStorageInterface[] getIterator
  */
 class CompositeDomainStorage extends AbstractStorageDecorator implements DomainStorageInterface
 {
     /**
-     * @param string                 $name
+     * @param string $name
      * @param DomainStorageInterface $storage
      *
      * @return CompositeDomainStorage
@@ -34,6 +36,56 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
         $this->offsetSet($name, $storage);
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findById(string $name, $id): ?DomainInterface
+    {
+        foreach ($this->getIterator() as $storage) {
+            if (false === $storage->supports($name)) {
+                continue;
+            }
+            $storage->findById($name, $id);
+        }
+
+        throw new UnsupportedDomainStorageException($this, $name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findMany(
+        string $name,
+        array $criteria = [],
+        array $orderBy = [],
+        int $limit = 0,
+        int $offset = 0
+    ): array {
+        foreach ($this->getIterator() as $storage) {
+            if (false === $storage->supports($name)) {
+                continue;
+            }
+            $storage->findMany($name, $criteria, $orderBy, $limit, $offset);
+        }
+
+        throw new UnsupportedDomainStorageException($this, $name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findOne(string $name, array $criteria = [], array $orderBy = []): ?DomainInterface
+    {
+        foreach ($this->getIterator() as $storage) {
+            if (false === $storage->supports($name)) {
+                continue;
+            }
+            $storage->findOne($name, $criteria, $orderBy);
+        }
+
+        throw new UnsupportedDomainStorageException($this, $name);
     }
 
     /**
@@ -58,35 +110,5 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
         }
 
         return false;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function find(string $name, int $limit = 0, int $offset = 0): array
-    {
-        foreach ($this->getIterator() as $storage) {
-            if (false === $storage->supports($name)) {
-                continue;
-            }
-            $storage->find($name, $limit, $offset);
-        }
-
-        throw new UnsupportedDomainStorageException($this, $name);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findOne(string $name, array $criteria = [], array $orderBy = []): ?DomainInterface
-    {
-        foreach ($this->getIterator() as $storage) {
-            if (false === $storage->supports($name)) {
-                continue;
-            }
-            $storage->findOne($name, $criteria, $orderBy);
-        }
-
-        throw new UnsupportedDomainStorageException($this, $name);
     }
 }

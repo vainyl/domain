@@ -25,12 +25,28 @@ abstract class AbstractDomainStorage extends AbstractStorageDecorator implements
 {
     /**
      * @param string $name
+     * @param        $id
+     *
+     * @return null|DomainInterface
+     */
+    abstract public function doFindById(string $name, $id): ?DomainInterface;
+
+    /**
+     * @param string $name
+     * @param array  $criteria
+     * @param array  $orderBy
      * @param int    $limit
      * @param int    $offset
      *
-     * @return array
+     * @return DomainInterface[]
      */
-    abstract public function doFind(string $name, int $limit = 0, int $offset = 0): array;
+    abstract public function doFindMany(
+        string $name,
+        array $criteria = [],
+        array $orderBy = [],
+        int $limit = 0,
+        int $offset = 0
+    ): array;
 
     /**
      * @param string $name
@@ -44,13 +60,30 @@ abstract class AbstractDomainStorage extends AbstractStorageDecorator implements
     /**
      * @inheritDoc
      */
-    public function find(string $name, int $limit = 0, int $offset = 0): array
+    public function findById(string $name, $id): ?DomainInterface
     {
         if (false === $this->supports($name)) {
             throw new UnsupportedDomainStorageException($this, $name);
         }
 
-        return $this->doFind($name, $limit, $offset);
+        return $this->doFindById($name, $id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findMany(
+        string $name,
+        array $criteria = [],
+        array $orderBy = [],
+        int $limit = 0,
+        int $offset = 0
+    ): array {
+        if (false === $this->supports($name)) {
+            throw new UnsupportedDomainStorageException($this, $name);
+        }
+
+        return $this->doFindMany($name, $limit, $offset);
     }
 
     /**
