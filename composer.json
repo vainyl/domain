@@ -13,10 +13,11 @@
         }
     },
     "require": {
-        "vainyl/core": "dev-master",
-        "vainyl/event": "dev-master",
-        "vainyl/operation": "dev-master",
-        "vainyl/time": "dev-master"
+        "php": ">=7.1",
+        "vainyl/core": "0.1.x-dev",
+        "vainyl/event": "0.1.x-dev",
+        "vainyl/operation": "0.1.x-dev",
+        "vainyl/time": "0.1.x-dev"
     },
     "repositories": [
         {

@@ -7,3 +7,17 @@ services:
     class: Vainyl\Domain\Operation\Factory\CompositeDomainOperationFactory
     arguments: ['@storage.prototype']
   domain.operation.factory: '@domain.operation.factory.composite'
+  domain.operation.factory.event:
+    class: Vainyl\Domain\Operation\Decorator\EventDomainOperationFactoryDecorator
+    decorates: domain.operation.factory
+    decoration_priority: 1000
+    arguments: ['@domain.operation.factory.event.inner', '@collection.factory.sequence', '@event.dispatcher.collection']
+  domain.operation.factory.timestamp:
+    class: Vainyl\Domain\Operation\Decorator\TimestampDomainOperationFactoryDecorator
+    decorates: domain.operation.factory
+    decoration_priority: 100
+    arguments: ['@domain.operation.factory.timestamp.inner', '@collection.factory.sequence', '@time.provider']
+  domain.hydrator.composite:
+    class: Vainyl\Domain\Hydrator\CompositeDomainHydrator
+    arguments: ['@storage.prototype']
+  domain.hydrator: '@domain.hydrator.composite'

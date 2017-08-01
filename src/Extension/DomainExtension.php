@@ -26,6 +26,6 @@ class DomainExtension extends AbstractFrameworkExtension
      */
     public function getCompilerPasses(): array
     {
-        return [new DomainFactoryCompilerPass(), new DomainStorageCompilerPass()];
+        return [new DomainFactoryCompilerPass(), new DomainStorageCompilerPass(), new DomainHydratorCompilerPass()];
     }
 }
