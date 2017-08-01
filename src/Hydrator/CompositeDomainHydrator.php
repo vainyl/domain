@@ -22,7 +22,7 @@ use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class CompositeDomainHydrator extends AbstractStorageDecorator implements HydratorInterface
+class CompositeDomainHydrator extends AbstractStorageDecorator implements DomainHydratorInterface
 {
     /**
      * @param string                  $alias
