@@ -47,7 +47,7 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
             if (false === $storage->supports($name)) {
                 continue;
             }
-            $storage->findById($name, $id);
+            return $storage->findById($name, $id);
         }
 
         throw new UnsupportedDomainStorageException($this, $name);
@@ -67,7 +67,7 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
             if (false === $storage->supports($name)) {
                 continue;
             }
-            $storage->findMany($name, $criteria, $orderBy, $limit, $offset);
+            return $storage->findMany($name, $criteria, $orderBy, $limit, $offset);
         }
 
         throw new UnsupportedDomainStorageException($this, $name);
@@ -82,7 +82,7 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
             if (false === $storage->supports($name)) {
                 continue;
             }
-            $storage->findOne($name, $criteria, $orderBy);
+            return $storage->findOne($name, $criteria, $orderBy);
         }
 
         throw new UnsupportedDomainStorageException($this, $name);
