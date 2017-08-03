@@ -34,15 +34,14 @@ class DomainHydratorCompilerPass implements CompilerPassInterface
             throw new MissingRequiredServiceException($container, 'domain.hydrator.composite');
         }
 
-        $containerDefinition = $container->getDefinition('domain.hydrator.composite');
-
+        $hydratorDefinition = $container->getDefinition('domain.hydrator.composite');
         foreach ($container->findTaggedServiceIds('domain.hydrator') as $id => $tags) {
             foreach ($tags as $attributes) {
                 if (false === array_key_exists('alias', $attributes)) {
                     throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
                 }
 
-                $containerDefinition
+                $hydratorDefinition
                     ->addMethodCall('addHydrator', [$attributes['alias'], new Reference($id)]);
             }
         }

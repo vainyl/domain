@@ -44,7 +44,7 @@ class UpdateDomainEvent extends AbstractIdentifiable implements EventInterface
      */
     public function getName(): string
     {
-        return $this->newDomain->getName() . '.' . 'update';
+        return sprintf('domain.%s.update', $this->newDomain->getName());
     }
 
     /**

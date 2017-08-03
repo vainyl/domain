@@ -25,5 +25,5 @@ interface DomainStorageExceptionInterface extends CoreExceptionInterface
     /**
      * @return DomainStorageInterface
      */
-    public function getStorage() : DomainStorageInterface;
+    public function getStorage(): DomainStorageInterface;
 }

@@ -34,15 +34,14 @@ class DomainFactoryCompilerPass implements CompilerPassInterface
             throw new MissingRequiredServiceException($container, 'domain.operation.factory.composite');
         }
 
-        $containerDefinition = $container->getDefinition('domain.operation.factory.composite');
-
+        $factoryDefinition = $container->getDefinition('domain.operation.factory.composite');
         foreach ($container->findTaggedServiceIds('domain.operation.factory') as $id => $tags) {
             foreach ($tags as $attributes) {
                 if (false === array_key_exists('alias', $attributes)) {
                     throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
                 }
 
-                $containerDefinition
+                $factoryDefinition
                     ->addMethodCall('addFactory', [$attributes['alias'], new Reference($id)]);
             }
         }

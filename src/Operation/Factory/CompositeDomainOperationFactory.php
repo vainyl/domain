@@ -25,7 +25,7 @@ use Vainyl\Operation\OperationInterface;
 class CompositeDomainOperationFactory extends AbstractStorageDecorator implements DomainOperationFactoryInterface
 {
     /**
-     * @param string $name
+     * @param string                          $name
      * @param DomainOperationFactoryInterface $domainOperationFactory
      *
      * @return CompositeDomainOperationFactory
@@ -54,6 +54,9 @@ class CompositeDomainOperationFactory extends AbstractStorageDecorator implement
      */
     public function supports(DomainInterface $domain): bool
     {
+        /**
+         * @var DomainOperationFactoryInterface $operationFactory
+         */
         foreach ($this->getIterator() as $operationFactory) {
             if (false === $operationFactory->supports($domain)) {
                 continue;
@@ -70,6 +73,9 @@ class CompositeDomainOperationFactory extends AbstractStorageDecorator implement
      */
     public function create(DomainInterface $domain): OperationInterface
     {
+        /**
+         * @var DomainOperationFactoryInterface $operationFactory
+         */
         foreach ($this->getIterator() as $operationFactory) {
             if (false === $operationFactory->supports($domain)) {
                 continue;
@@ -86,6 +92,9 @@ class CompositeDomainOperationFactory extends AbstractStorageDecorator implement
      */
     public function update(DomainInterface $newDomain, DomainInterface $oldDomain): OperationInterface
     {
+        /**
+         * @var DomainOperationFactoryInterface $operationFactory
+         */
         foreach ($this->getIterator() as $operationFactory) {
             if (false === $operationFactory->supports($newDomain)) {
                 continue;
@@ -102,6 +111,9 @@ class CompositeDomainOperationFactory extends AbstractStorageDecorator implement
      */
     public function delete(DomainInterface $domain): OperationInterface
     {
+        /**
+         * @var DomainOperationFactoryInterface $operationFactory
+         */
         foreach ($this->getIterator() as $operationFactory) {
             if (false === $operationFactory->supports($domain)) {
                 continue;
@@ -118,6 +130,9 @@ class CompositeDomainOperationFactory extends AbstractStorageDecorator implement
      */
     public function upsert(DomainInterface $domain): OperationInterface
     {
+        /**
+         * @var DomainOperationFactoryInterface $operationFactory
+         */
         foreach ($this->getIterator() as $operationFactory) {
             if (false === $operationFactory->supports($domain)) {
                 continue;

@@ -40,13 +40,13 @@ class DeleteDomainEvent extends AbstractIdentifiable implements EventInterface
      */
     public function getName(): string
     {
-        return $this->domain->getName() . '.' . 'delete';
+        return sprintf('domain.%s.delete', $this->domain->getName());
     }
 
     /**
      * @return DomainInterface
      */
-    public function getDomain() : DomainInterface
+    public function getDomain(): DomainInterface
     {
         return $this->domain;
     }

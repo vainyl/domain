@@ -16,6 +16,7 @@ use Vainyl\Core\ArrayInterface;
 use Vainyl\Core\Exception\UnsupportedClassHydratorException;
 use Vainyl\Core\Hydrator\HydratorInterface;
 use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
+use Vainyl\Domain\DomainInterface;
 
 /**
  * Class CompositeDomainHydrator
@@ -30,7 +31,7 @@ class CompositeDomainHydrator extends AbstractStorageDecorator implements Domain
      *
      * @return CompositeDomainHydrator
      */
-    public function addHydrator(string $alias, DomainHydratorInterface $hydrator) : CompositeDomainHydrator
+    public function addHydrator(string $alias, DomainHydratorInterface $hydrator): CompositeDomainHydrator
     {
         $this->offsetSet($alias, $hydrator);
 

@@ -40,13 +40,13 @@ class CreateDomainEvent extends AbstractIdentifiable implements EventInterface
      */
     public function getName(): string
     {
-        return $this->domain->getName() . '.' . 'create';
+        return sprintf('domain.%s.create', $this->domain->getName());
     }
 
     /**
      * @return DomainInterface
      */
-    public function getDomain() : DomainInterface
+    public function getDomain(): DomainInterface
     {
         return $this->domain;
     }
