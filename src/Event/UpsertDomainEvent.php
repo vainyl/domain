@@ -36,18 +36,18 @@ class UpsertDomainEvent extends AbstractIdentifiable implements EventInterface
     }
 
     /**
+     * @return DomainInterface
+     */
+    public function getDomain(): DomainInterface
+    {
+        return $this->domain;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getName(): string
     {
-        return $this->domain->getName() . '.' . 'upsert';
-    }
-
-    /**
-     * @return DomainInterface
-     */
-    public function getDomain() : DomainInterface
-    {
-        return $this->domain;
+        return sprintf('domain.%s.upsert', $this->domain->getName());
     }
 }
