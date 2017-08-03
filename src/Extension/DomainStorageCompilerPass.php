@@ -34,15 +34,14 @@ class DomainStorageCompilerPass implements CompilerPassInterface
             throw new MissingRequiredServiceException($container, 'domain.storage.composite');
         }
 
-        $containerDefinition = $container->getDefinition('domain.storage.composite');
-
+        $storageDefinition = $container->getDefinition('domain.storage.composite');
         foreach ($container->findTaggedServiceIds('domain.storage') as $id => $tags) {
             foreach ($tags as $attributes) {
                 if (false === array_key_exists('alias', $attributes)) {
                     throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
                 }
 
-                $containerDefinition
+                $storageDefinition
                     ->addMethodCall('addStorage', [$attributes['alias'], new Reference($id)]);
             }
         }
