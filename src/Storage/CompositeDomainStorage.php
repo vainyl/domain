@@ -26,7 +26,7 @@ use Vainyl\Domain\Exception\UnsupportedDomainStorageException;
 class CompositeDomainStorage extends AbstractStorageDecorator implements DomainStorageInterface
 {
     /**
-     * @param string $name
+     * @param string                 $name
      * @param DomainStorageInterface $storage
      *
      * @return CompositeDomainStorage
@@ -47,6 +47,7 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
             if (false === $storage->supports($name)) {
                 continue;
             }
+
             return $storage->findById($name, $id);
         }
 
@@ -67,6 +68,7 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
             if (false === $storage->supports($name)) {
                 continue;
             }
+
             return $storage->findMany($name, $criteria, $orderBy, $limit, $offset);
         }
 
@@ -82,6 +84,7 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
             if (false === $storage->supports($name)) {
                 continue;
             }
+
             return $storage->findOne($name, $criteria, $orderBy);
         }
 

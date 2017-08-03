@@ -46,7 +46,7 @@ class DeleteDomainEvent extends AbstractIdentifiable implements EventInterface
     /**
      * @return DomainInterface
      */
-    public function getDomain() : DomainInterface
+    public function getDomain(): DomainInterface
     {
         return $this->domain;
     }
