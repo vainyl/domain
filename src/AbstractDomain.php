@@ -34,11 +34,11 @@ abstract class AbstractDomain implements DomainInterface
     }
 
     /**
-     * @inheritDoc
+     * @return TimeInterface
      */
-    public function getName(): string
+    public function getCreatedAt(): TimeInterface
     {
-        return (new \ReflectionClass($this))->getShortName();
+        return $this->createdAt();
     }
 
     /**
@@ -49,6 +49,22 @@ abstract class AbstractDomain implements DomainInterface
         $this->createdAt = $time;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return (new \ReflectionClass($this))->getShortName();
+    }
+
+    /**
+     * @return TimeInterface
+     */
+    public function getUpdatedAt(): TimeInterface
+    {
+        return $this->updatedAt();
     }
 
     /**
