@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Vainyl\Domain;
 
+use Vainyl\Core\AbstractIdentifiable;
 use Vainyl\Time\TimeInterface;
 
 /**
@@ -19,7 +20,7 @@ use Vainyl\Time\TimeInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractDomain implements DomainInterface
+abstract class AbstractDomain extends AbstractIdentifiable implements DomainInterface
 {
     protected $createdAt;
 
@@ -28,7 +29,7 @@ abstract class AbstractDomain implements DomainInterface
     /**
      * @inheritDoc
      */
-    public function createdAt(): TimeInterface
+    public function createdAt(): ?TimeInterface
     {
         return $this->createdAt;
     }
@@ -36,7 +37,7 @@ abstract class AbstractDomain implements DomainInterface
     /**
      * @return TimeInterface
      */
-    public function getCreatedAt(): TimeInterface
+    public function getCreatedAt(): ?TimeInterface
     {
         return $this->createdAt();
     }
@@ -62,7 +63,7 @@ abstract class AbstractDomain implements DomainInterface
     /**
      * @return TimeInterface
      */
-    public function getUpdatedAt(): TimeInterface
+    public function getUpdatedAt(): ?TimeInterface
     {
         return $this->updatedAt();
     }
@@ -80,7 +81,7 @@ abstract class AbstractDomain implements DomainInterface
     /**
      * @inheritDoc
      */
-    public function updatedAt(): TimeInterface
+    public function updatedAt(): ?TimeInterface
     {
         return $this->updatedAt;
     }

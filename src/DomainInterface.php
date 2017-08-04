@@ -37,12 +37,12 @@ interface DomainInterface extends NameableInterface
     public function setUpdatedAt(TimeInterface $time): DomainInterface;
 
     /**
-     * @return TimeInterface
+     * @return null|TimeInterface
      */
-    public function createdAt(): TimeInterface;
+    public function createdAt(): ?TimeInterface;
 
     /**
-     * @return TimeInterface
+     * @return null|TimeInterface
      */
-    public function updatedAt(): TimeInterface;
+    public function updatedAt(): ?TimeInterface;
 }
