@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Vainyl\Domain\Operation\Decorator;
 
+use Vainyl\Core\AbstractIdentifiable;
 use Vainyl\Domain\DomainInterface;
 use Vainyl\Domain\Operation\Factory\DomainOperationFactoryInterface;
 use Vainyl\Operation\OperationInterface;
@@ -21,7 +22,7 @@ use Vainyl\Operation\OperationInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractDomainOperationFactoryDecorator implements DomainOperationFactoryInterface
+abstract class AbstractDomainOperationFactoryDecorator extends AbstractIdentifiable implements DomainOperationFactoryInterface
 {
     private $operationFactory;
 
