@@ -1,11 +1,11 @@
 services:
   domain.storage.composite:
     class: Vainyl\Domain\Storage\CompositeDomainStorage
-    arguments: ['@storage.prototype']
+    arguments: ['@map.prototype']
   domain.storage: '@domain.storage.composite'
   domain.operation.factory.composite:
     class: Vainyl\Domain\Operation\Factory\CompositeDomainOperationFactory
-    arguments: ['@storage.prototype']
+    arguments: ['@map.prototype']
   domain.operation.factory: '@domain.operation.factory.composite'
   domain.operation.factory.event:
     class: Vainyl\Domain\Operation\Decorator\EventDomainOperationFactoryDecorator
@@ -19,5 +19,5 @@ services:
     arguments: ['@domain.operation.factory.timestamp.inner', '@collection.factory.sequence', '@time.provider']
   domain.hydrator.composite:
     class: Vainyl\Domain\Hydrator\CompositeDomainHydrator
-    arguments: ['@storage.prototype']
+    arguments: ['@map.prototype']
   domain.hydrator: '@domain.hydrator.composite'
