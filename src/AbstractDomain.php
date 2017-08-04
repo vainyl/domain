@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Vainyl\Domain;
 
-use Vainyl\Core\ArrayInterface;
 use Vainyl\Time\TimeInterface;
 
 /**
@@ -45,15 +44,7 @@ abstract class AbstractDomain implements DomainInterface
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setCreatedAt(TimeInterface $time): ArrayInterface
+    public function setCreatedAt(TimeInterface $time): DomainInterface
     {
         $this->createdAt = $time;
 
@@ -63,31 +54,11 @@ abstract class AbstractDomain implements DomainInterface
     /**
      * @inheritDoc
      */
-    public function setUpdatedAt(TimeInterface $time): ArrayInterface
+    public function setUpdatedAt(TimeInterface $time): DomainInterface
     {
         $this->updatedAt = $time;
 
         return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function toArray(): array
-    {
-        $array = [];
-        foreach (get_object_vars($this) as $field => $value) {
-            switch (true) {
-                case (false === is_object($value)):
-                    $array[$field] = $value;
-                    break;
-                case ($value instanceof ArrayInterface):
-                    $array[$field] = $value->toArray();
-                    break;
-            }
-        }
-
-        return $array;
     }
 
     /**
