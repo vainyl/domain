@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Vainyl\Domain;
 
-use Vainyl\Core\ArrayInterface;
+use Vainyl\Core\AbstractIdentifiable;
 use Vainyl\Time\TimeInterface;
 
 /**
@@ -20,7 +20,7 @@ use Vainyl\Time\TimeInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractDomain implements DomainInterface
+abstract class AbstractDomain extends AbstractIdentifiable implements DomainInterface
 {
     protected $createdAt;
 
@@ -29,9 +29,27 @@ abstract class AbstractDomain implements DomainInterface
     /**
      * @inheritDoc
      */
-    public function createdAt(): TimeInterface
+    public function createdAt(): ?TimeInterface
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return TimeInterface
+     */
+    public function getCreatedAt(): ?TimeInterface
+    {
+        return $this->createdAt();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setCreatedAt(TimeInterface $time): DomainInterface
+    {
+        $this->createdAt = $time;
+
+        return $this;
     }
 
     /**
@@ -43,27 +61,17 @@ abstract class AbstractDomain implements DomainInterface
     }
 
     /**
-     * @inheritDoc
+     * @return TimeInterface
      */
-    public function jsonSerialize()
+    public function getUpdatedAt(): ?TimeInterface
     {
-        return $this->toArray();
+        return $this->updatedAt();
     }
 
     /**
      * @inheritDoc
      */
-    public function setCreatedAt(TimeInterface $time): ArrayInterface
-    {
-        $this->createdAt = $time;
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setUpdatedAt(TimeInterface $time): ArrayInterface
+    public function setUpdatedAt(TimeInterface $time): DomainInterface
     {
         $this->updatedAt = $time;
 
@@ -73,27 +81,7 @@ abstract class AbstractDomain implements DomainInterface
     /**
      * @inheritDoc
      */
-    public function toArray(): array
-    {
-        $array = [];
-        foreach (get_object_vars($this) as $field => $value) {
-            switch (true) {
-                case (false === is_object($value)):
-                    $array[$field] = $value;
-                    break;
-                case ($value instanceof ArrayInterface):
-                    $array[$field] = $value->toArray();
-                    break;
-            }
-        }
-
-        return $array;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function updatedAt(): TimeInterface
+    public function updatedAt(): ?TimeInterface
     {
         return $this->updatedAt;
     }
