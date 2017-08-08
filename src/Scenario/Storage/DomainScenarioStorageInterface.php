@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Vainyl\Domain\Scenario\Storage;
 
-use Vainyl\Core\ArrayInterface;
+use Vainyl\Core\IdentifiableInterface;
 use Vainyl\Domain\Scenario\ScenarioInterface;
 
 /**
@@ -20,7 +20,7 @@ use Vainyl\Domain\Scenario\ScenarioInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface DomainScenarioStorageInterface extends ArrayInterface
+interface DomainScenarioStorageInterface extends IdentifiableInterface
 {
     /**
      * @param string $name
