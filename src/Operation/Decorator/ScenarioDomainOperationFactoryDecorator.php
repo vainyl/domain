@@ -14,37 +14,36 @@ namespace Vainyl\Domain\Operation\Decorator;
 
 use Vainyl\Domain\DomainInterface;
 use Vainyl\Domain\Operation\Factory\DomainOperationFactoryInterface;
-use Vainyl\Domain\Operation\SetCreatedAtOperation;
-use Vainyl\Domain\Operation\SetUpdatedAtOperation;
+use Vainyl\Domain\Scenario\CheckScenarioOperation;
+use Vainyl\Domain\Scenario\Storage\DomainScenarioStorageInterface;
 use Vainyl\Operation\Collection\Factory\CollectionFactoryInterface;
 use Vainyl\Operation\OperationInterface;
-use Vainyl\Time\Provider\TimeProviderInterface;
 
 /**
- * Class TimestampDomainOperationFactoryDecorator
+ * Class ScenarioDomainOperationFactoryDecorator
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class TimestampDomainOperationFactoryDecorator extends AbstractDomainOperationFactoryDecorator
+class ScenarioDomainOperationFactoryDecorator extends AbstractDomainOperationFactoryDecorator
 {
     private $collectionFactory;
 
-    private $timeProvider;
+    private $scenarioStorage;
 
     /**
-     * TimestampDomainOperationFactoryDecorator constructor.
+     * ScenarioDomainOperationFactoryDecorator constructor.
      *
      * @param DomainOperationFactoryInterface $operationFactory
      * @param CollectionFactoryInterface      $collectionFactory
-     * @param TimeProviderInterface           $timeProvider
+     * @param DomainScenarioStorageInterface  $domainStorage
      */
     public function __construct(
         DomainOperationFactoryInterface $operationFactory,
         CollectionFactoryInterface $collectionFactory,
-        TimeProviderInterface $timeProvider
+        DomainScenarioStorageInterface $domainStorage
     ) {
         $this->collectionFactory = $collectionFactory;
-        $this->timeProvider = $timeProvider;
+        $this->scenarioStorage = $domainStorage;
         parent::__construct($operationFactory);
     }
 
@@ -53,12 +52,12 @@ class TimestampDomainOperationFactoryDecorator extends AbstractDomainOperationFa
      */
     public function create(DomainInterface $domain): OperationInterface
     {
-        return $this->collectionFactory
-            ->create()
-            ->add(
-                new SetCreatedAtOperation($domain, $this->timeProvider->getCurrentTime())
-            )
-            ->add(parent::create($domain));
+        $collection = $this->collectionFactory->create();;
+        foreach ($this->scenarioStorage->getScenarios(get_class($domain)) as $scenario) {
+            $collection->add(new CheckScenarioOperation($domain, $scenario));
+        }
+
+        return $collection->add(parent::create($domain));
     }
 
     /**
@@ -66,12 +65,12 @@ class TimestampDomainOperationFactoryDecorator extends AbstractDomainOperationFa
      */
     public function update(DomainInterface $newDomain, DomainInterface $oldDomain): OperationInterface
     {
-        return $this->collectionFactory
-            ->create()
-            ->add(
-                new SetUpdatedAtOperation($newDomain, $this->timeProvider->getCurrentTime())
-            )
-            ->add(parent::update($newDomain, $oldDomain));
+        $collection = $this->collectionFactory->create();;
+        foreach ($this->scenarioStorage->getScenarios(get_class($newDomain)) as $scenario) {
+            $collection->add(new CheckScenarioOperation($newDomain, $scenario));
+        }
+
+        return $collection->add(parent::update($newDomain, $oldDomain));
     }
 
     /**
@@ -79,13 +78,9 @@ class TimestampDomainOperationFactoryDecorator extends AbstractDomainOperationFa
      */
     public function upsert(DomainInterface $domain): OperationInterface
     {
-        $collection = $this->collectionFactory->create();
-        if (null === $domain->createdAt()) {
-            $collection->add(new SetCreatedAtOperation($domain, $this->timeProvider->getCurrentTime()));
-        }
-
-        if (null === $domain->updatedAt()) {
-            $collection->add(new SetUpdatedAtOperation($domain, $this->timeProvider->getCurrentTime()));
+        $collection = $this->collectionFactory->create();;
+        foreach ($this->scenarioStorage->getScenarios(get_class($domain)) as $scenario) {
+            $collection->add(new CheckScenarioOperation($domain, $scenario));
         }
 
         return $collection->add(parent::upsert($domain));

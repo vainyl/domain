@@ -15,6 +15,7 @@ namespace Vainyl\Domain\Storage;
 use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
 use Vainyl\Domain\DomainInterface;
 use Vainyl\Domain\Exception\UnsupportedDomainStorageException;
+use Vainyl\Domain\Scenario\Storage\DomainScenarioStorageInterface;
 
 /**
  * Class CompositeDomainStorage
@@ -23,7 +24,9 @@ use Vainyl\Domain\Exception\UnsupportedDomainStorageException;
  *
  * @method DomainStorageInterface[] getIterator
  */
-class CompositeDomainStorage extends AbstractStorageDecorator implements DomainStorageInterface
+class CompositeDomainStorage extends AbstractStorageDecorator implements
+    DomainStorageInterface,
+    DomainScenarioStorageInterface
 {
     /**
      * @param string                 $name
@@ -113,5 +116,24 @@ class CompositeDomainStorage extends AbstractStorageDecorator implements DomainS
         }
 
         return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getScenarios(string $name): array
+    {
+        /**
+         * @var DomainScenarioStorageInterface $storage
+         */
+        foreach ($this->getIterator() as $storage) {
+            if (false === $storage->supports($name)) {
+                continue;
+            }
+
+            return $storage->getScenarios($name);
+        }
+
+        throw new UnsupportedDomainStorageException($this, $name);
     }
 }
