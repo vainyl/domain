@@ -3,6 +3,7 @@ services:
     class: Vainyl\Domain\Storage\CompositeDomainStorage
     arguments: ['@map.prototype']
   domain.storage: '@domain.storage.composite'
+  domain.scenario.storage: '@domain.storage.composite'
   domain.operation.factory.composite:
     class: Vainyl\Domain\Operation\Factory\CompositeDomainOperationFactory
     arguments: ['@map.prototype']
@@ -17,6 +18,11 @@ services:
     decorates: domain.operation.factory
     decoration_priority: 100
     arguments: ['@domain.operation.factory.timestamp.inner', '@collection.factory.sequence', '@time.provider']
+  domain.operation.factory.scenario:
+    class: Vainyl\Domain\Operation\Decorator\ScenarioDomainOperationFactoryDecorator
+    decorates: domain.operation.factory
+    decoration_priority: 200
+    arguments: ['@domain.operation.factory.scenario.inner', '@collection.factory.sequence', '@domain.scenario.storage']
   domain.hydrator.composite:
     class: Vainyl\Domain\Hydrator\CompositeDomainHydrator
     arguments: ['@map.prototype']

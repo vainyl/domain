@@ -12,11 +12,10 @@ declare(strict_types=1);
 
 namespace Vainyl\Domain\Hydrator;
 
-use Vainyl\Core\ArrayInterface;
 use Vainyl\Core\Exception\UnsupportedClassHydratorException;
 use Vainyl\Core\Hydrator\HydratorInterface;
+use Vainyl\Core\IdentifiableInterface;
 use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
-use Vainyl\Domain\DomainInterface;
 
 /**
  * Class CompositeDomainHydrator
@@ -41,7 +40,7 @@ class CompositeDomainHydrator extends AbstractStorageDecorator implements Domain
     /**
      * @inheritDoc
      */
-    public function create(string $className, array $data): ArrayInterface
+    public function create(string $className, array $data): IdentifiableInterface
     {
         /**
          * @var HydratorInterface $hydrator
@@ -79,7 +78,7 @@ class CompositeDomainHydrator extends AbstractStorageDecorator implements Domain
     /**
      * @inheritDoc
      */
-    public function update($object, array $data): ArrayInterface
+    public function update($object, array $data): IdentifiableInterface
     {
         /**
          * @var HydratorInterface $hydrator
