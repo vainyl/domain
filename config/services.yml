@@ -27,3 +27,5 @@ services:
     class: Vainyl\Domain\Hydrator\CompositeDomainHydrator
     arguments: ['@map.prototype']
   domain.hydrator: '@domain.hydrator.composite'
+  domain.metadata.factory:
+    class: Vainyl\Domain\Metadata\Factory\DomainMetadataFactory
