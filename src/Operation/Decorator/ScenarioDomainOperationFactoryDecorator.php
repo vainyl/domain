@@ -60,9 +60,15 @@ class ScenarioDomainOperationFactoryDecorator extends AbstractDomainOperationFac
     public function create(DomainInterface $domain): OperationInterface
     {
         $collection = $this->collectionFactory->create();;
-        foreach ($this->scenarioStorage->getScenarios(get_class($domain)) as $name => $settings) {
+        foreach ($this->scenarioStorage->getScenarios(get_class($domain)) as $scenario) {
             $collection->add(
-                new CheckScenarioOperation($domain, $this->scenarioFactory->createScenario($name, $settings))
+                new CheckScenarioOperation(
+                    $domain,
+                    $this->scenarioFactory->createScenario(
+                        $scenario['name'],
+                        $scenario['settings']
+                    )
+                )
             );
         }
 
@@ -75,9 +81,15 @@ class ScenarioDomainOperationFactoryDecorator extends AbstractDomainOperationFac
     public function update(DomainInterface $newDomain, DomainInterface $oldDomain): OperationInterface
     {
         $collection = $this->collectionFactory->create();;
-        foreach ($this->scenarioStorage->getScenarios(get_class($newDomain)) as $name => $settings) {
+        foreach ($this->scenarioStorage->getScenarios(get_class($newDomain)) as $scenario) {
             $collection->add(
-                new CheckScenarioOperation($newDomain, $this->scenarioFactory->createScenario($name, $settings))
+                new CheckScenarioOperation(
+                    $newDomain,
+                    $this->scenarioFactory->createScenario(
+                        $scenario['name'],
+                        $scenario['settings']
+                    )
+                )
             );
         }
 
@@ -90,9 +102,15 @@ class ScenarioDomainOperationFactoryDecorator extends AbstractDomainOperationFac
     public function upsert(DomainInterface $domain): OperationInterface
     {
         $collection = $this->collectionFactory->create();;
-        foreach ($this->scenarioStorage->getScenarios(get_class($domain)) as $name => $settings) {
+        foreach ($this->scenarioStorage->getScenarios(get_class($domain)) as $scenario) {
             $collection->add(
-                new CheckScenarioOperation($domain, $this->scenarioFactory->createScenario($name, $settings))
+                new CheckScenarioOperation(
+                    $domain,
+                    $this->scenarioFactory->createScenario(
+                        $scenario['name'],
+                        $scenario['settings']
+                    )
+                )
             );
         }
 
