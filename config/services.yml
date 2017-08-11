@@ -22,7 +22,7 @@ services:
     class: Vainyl\Domain\Operation\Decorator\ScenarioDomainOperationFactoryDecorator
     decorates: domain.operation.factory
     decoration_priority: 200
-    arguments: ['@domain.operation.factory.scenario.inner', '@collection.factory.sequence', '@domain.scenario.storage']
+    arguments: ['@domain.operation.factory.scenario.inner', '@collection.factory.sequence', '@domain.scenario.storage', '@domain.scenario.factory']
   domain.hydrator.composite:
     class: Vainyl\Domain\Hydrator\CompositeDomainHydrator
     arguments: ['@map.prototype']
