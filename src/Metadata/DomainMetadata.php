@@ -25,6 +25,8 @@ class DomainMetadata extends AbstractIdentifiable implements DomainMetadataInter
 
     public $scenarios = [];
 
+    public $primary = false;
+
     /**
      * @inheritDoc
      */
@@ -59,5 +61,33 @@ class DomainMetadata extends AbstractIdentifiable implements DomainMetadataInter
         $this->scenarios = $scenarios;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPrimary(): DomainMetadataInterface
+    {
+        $this->primary = true;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setSecondary(): DomainMetadataInterface
+    {
+        $this->primary = false;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isPrimary(): bool
+    {
+        return $this->primary;
     }
 }
