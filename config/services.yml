@@ -29,3 +29,7 @@ services:
   domain.hydrator: '@domain.hydrator.composite'
   domain.metadata.factory:
     class: Vainyl\Domain\Metadata\Factory\DomainMetadataFactory
+  domain.scenario.factory.composite:
+    class: Vainyl\Domain\Scenario\Factory\CompositeScenarioFactory
+    arguments: ['@map.storage']
+  domain.scenario.factory: '@domain.scenario.factory.composite'
