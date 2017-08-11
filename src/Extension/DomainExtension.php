@@ -30,6 +30,7 @@ class DomainExtension extends AbstractFrameworkExtension
             [new DomainFactoryCompilerPass()],
             [new DomainStorageCompilerPass()],
             [new DomainHydratorCompilerPass()],
+            [new DomainScenarioFactoryCompilerPass()]
         ];
     }
 }
