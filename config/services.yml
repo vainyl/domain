@@ -31,5 +31,5 @@ services:
     class: Vainyl\Domain\Metadata\Factory\DomainMetadataFactory
   domain.scenario.factory.composite:
     class: Vainyl\Domain\Scenario\Factory\CompositeScenarioFactory
-    arguments: ['@map.storage']
+    arguments: ['@map.prototype']
   domain.scenario.factory: '@domain.scenario.factory.composite'
