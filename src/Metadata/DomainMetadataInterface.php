@@ -44,4 +44,19 @@ interface DomainMetadataInterface extends IdentifiableInterface
      * @return DomainMetadataInterface
      */
     public function setScenarios(array $scenarios): DomainMetadataInterface;
+
+    /**
+     * @return DomainMetadataInterface
+     */
+    public function setPrimary() : DomainMetadataInterface;
+
+    /**
+     * @return DomainMetadataInterface
+     */
+    public function setSecondary() : DomainMetadataInterface;
+
+    /**
+     * @return bool
+     */
+    public function isPrimary() : bool;
 }
