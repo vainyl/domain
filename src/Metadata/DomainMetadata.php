@@ -25,7 +25,7 @@ class DomainMetadata extends AbstractIdentifiable implements DomainMetadataInter
 
     public $scenarios = [];
 
-    public $primary = false;
+    public $primary = true;
 
     /**
      * @inheritDoc
