@@ -69,4 +69,32 @@ abstract class AbstractDomainMetadataDecorator extends AbstractIdentifiable impl
 
         return $this;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPrimary(): DomainMetadataInterface
+    {
+        $this->domainMetadata->setPrimary();
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setSecondary(): DomainMetadataInterface
+    {
+        $this->domainMetadata->setSecondary();
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isPrimary(): bool
+    {
+        return $this->domainMetadata->isPrimary();
+    }
 }
