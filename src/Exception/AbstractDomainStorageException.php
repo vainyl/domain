@@ -30,13 +30,13 @@ abstract class AbstractDomainStorageException extends AbstractCoreException impl
      * @param DomainStorageInterface $storage
      * @param string                 $message
      * @param int                    $code
-     * @param \Exception|null        $previous
+     * @param \Throwable|null        $previous
      */
     public function __construct(
         DomainStorageInterface $storage,
         string $message,
         int $code = 500,
-        \Exception $previous = null
+        \Throwable $previous = null
     ) {
         $this->storage = $storage;
         parent::__construct($message, $code, $previous);
